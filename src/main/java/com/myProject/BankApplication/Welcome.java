@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Welcome {
     @RequestMapping("/welcome")
     public String welcome(){
-        return "Welcome to Bank Services!!";
+        return "Welcome to Tech Bank!!";
     }
 }
