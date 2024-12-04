@@ -15,20 +15,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.myProject.BankApplication.Bankaccount;
+import com.myProject.BankApplication.Customer;
 import com.myProject.BankApplication.AccountRepo.CustomerAccountRepository;
+import com.myProject.BankApplication.CustomerRepo.CustomerRepository;
 
 @RestController
 @RequestMapping("/account")
 public class CustomerAccountcontroller {
     @Autowired
     private CustomerAccountRepository accountRepository;
+    private CustomerRepository customerRepository;
 
 
 
     // create bank account for customers through cust_id
-    @PostMapping("/add")
+    @PostMapping("/add/{custid}")
     //public ResponseEntity<String> addAccount(@RequestBody Bankaccount accountDetails){
         // if(customerRepository.existsById(accountDetails.getCust_id())){
         //     accountDetails.setDate_created(new Date());
@@ -45,10 +49,18 @@ public class CustomerAccountcontroller {
         //     accountRepository.save(accountDetails);
         //     return ResponseEntity.ok("Account created successfully for customer ID: "+accountDetails.getCust_id());
         // }
-        Bankaccount addAccount(@RequestBody Bankaccount account){
-            account.setDate_created(new Date());
-            accountRepository.save(account);
-            return account;
+        Bankaccount addAccount(@PathVariable int custid, @RequestBody Bankaccount account){
+            Optional<Customer> customerOptional = customerRepository.findById(custid);
+            if (customerOptional.isPresent()) {
+                Customer customer = customerOptional.get();
+                account.setCustomer(customer); 
+                account.setDate_created(new Date());
+                accountRepository.save(account);
+                return account;
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with ID " + custid + " not found.");
+            }
     }
     //}
 
@@ -67,13 +79,14 @@ public class CustomerAccountcontroller {
     }
 
     // Delete a account by cust_ID
-    @DeleteMapping("/delete/{cust_id}")
-    ResponseEntity<String> delaccount(@PathVariable int cust_id){
-        Optional<Bankaccount> customerOptional = accountRepository.findById(cust_id);
+    @DeleteMapping("/delete/{custid}")
+    ResponseEntity<String> delaccount(@PathVariable int custid){
+        Optional<Bankaccount> customerOptional = accountRepository.findById(custid);
         if (customerOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer account not found");
         }
-        accountRepository.deleteById(cust_id);
+        accountRepository.deleteById(custid);
         return ResponseEntity.ok("Customer account deleted successfully");
     }
+
 }

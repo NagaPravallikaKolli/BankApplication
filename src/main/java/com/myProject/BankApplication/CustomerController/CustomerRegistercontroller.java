@@ -38,9 +38,9 @@ public class CustomerRegistercontroller {
     }
 
     // Get customer by ID
-    @GetMapping("/getbyID/{cust_id}")
-    Optional<Customer> getCustomer(@PathVariable int cust_id){
-        Optional<Customer> customer = customerRepository.findById(cust_id);
+    @GetMapping("/getbyID/{custid}")
+    Optional<Customer> getCustomer(@PathVariable int custid){
+        Optional<Customer> customer = customerRepository.findById(custid);
         return customer;
     }
 
@@ -53,20 +53,20 @@ public class CustomerRegistercontroller {
 
     
     // Delete a customer by ID
-    @DeleteMapping("/delete/{cust_id}")
-    ResponseEntity<String> delCustomer(@PathVariable int cust_id){
-        Optional<Customer> customerOptional = customerRepository.findById(cust_id);
+    @DeleteMapping("/delete/{custid}")
+    ResponseEntity<String> delCustomer(@PathVariable int custid){
+        Optional<Customer> customerOptional = customerRepository.findById(custid);
         if (customerOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
         }
-        customerRepository.deleteById(cust_id);
+        customerRepository.deleteById(custid);
         return ResponseEntity.ok("Customer deleted successfully");
     }
 
     // update customer details by their ID
-    @PutMapping("/updatecustomer/{cust_id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable int cust_id, @RequestBody Customer updatedCustomer){
-        Optional<Customer> existingCustomerOpt = customerRepository.findById(cust_id);
+    @PutMapping("/updatecustomer/{custid}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable int custid, @RequestBody Customer updatedCustomer){
+        Optional<Customer> existingCustomerOpt = customerRepository.findById(custid);
         if(existingCustomerOpt.isPresent()){
             Customer existingCustomer = existingCustomerOpt.get();
             existingCustomer.setCustname(updatedCustomer.getCustname());
