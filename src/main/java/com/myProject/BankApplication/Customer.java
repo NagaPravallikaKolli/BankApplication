@@ -1,17 +1,15 @@
 package com.myProject.BankApplication;
-
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
+//import java.util.ArrayList;
+//import java.util.List;
+//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+//import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-
 @Entity
 @Data
 @Table(name = "CUSTOMER")
@@ -30,6 +28,6 @@ public class Customer {
     private String cust_address;
     @Column(name = "Cust_PHNO", nullable = false)
     private String cust_phno;
-    //@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Bankaccount> accounts;
+    // @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    // private List<Bankaccount> accounts  = new ArrayList<>();
 }
