@@ -11,4 +11,6 @@ import com.myProject.BankApplication.Bankaccount;
 public interface CustomerAccountRepository extends JpaRepository<Bankaccount, Integer>{
 
     Optional<Bankaccount> findByAccid(int accid);
+
+    Optional<Bankaccount> findBycustid(int custid);
 }
