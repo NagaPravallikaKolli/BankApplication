@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myProject.BankApplication.Customer;
 import com.myProject.BankApplication.CustomerRepo.CustomerRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/customerlogin")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomerLoginController {
     @Autowired
     CustomerRepository customerRepository;
@@ -36,4 +38,4 @@ public class CustomerLoginController {
         }
         return ResponseEntity.ok("Login successful!!");
     }
-}
+} 

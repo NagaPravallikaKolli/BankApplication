@@ -1,18 +1,15 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+export default function Navbar(){
   return (
-    <nav className="bg-blue-500 p-4 text-white">
-      <ul className="flex justify-around">
-        <li><Link to="/" className="hover:underline">Home</Link></li>
-        <li><Link to="/register" className="hover:underline">Register</Link></li>
-        <li><Link to="/login" className="hover:underline">Login</Link></li>
-        {/* <li><Link to="/account-details" className="hover:underline">Account Details</Link></li>
-        <li><Link to="/transaction" className="hover:underline">Transactions</Link></li> */}
-      </ul>
-    </nav>
-  );
-};
-
-export default Navbar;
+    <div>
+    <nav className="nav-bar">
+      <h2 className = "welcome">Welcome to AtYourService Bank</h2>
+      <h3><Link to="/home"><button className="btn">Home</button></Link></h3>
+      <h3><Link to="/register"><button className="btn">Register</button></Link></h3>
+      <h3><Link to="/login"><button className="btn">Login</button></Link></h3>
+    </nav> 
+    </div>   
+  )
+}

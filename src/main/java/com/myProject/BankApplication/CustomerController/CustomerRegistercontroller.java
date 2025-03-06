@@ -14,15 +14,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 
 @RestController
 @RequestMapping("/customerregister")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomerRegistercontroller {
     @Autowired
     CustomerRepository customerRepository;
-
     // Add a customer
     @PostMapping("/add")
     Customer addCustomer(@RequestBody Customer customer){
@@ -83,5 +84,6 @@ public class CustomerRegistercontroller {
         }
         
     }
+    
 
 }
